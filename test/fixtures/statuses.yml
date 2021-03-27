@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  ratio: 1
+  number_of_women: 1
+  number_of_men: 1
+
+two:
+  ratio: 1
+  number_of_women: 1
+  number_of_men: 1

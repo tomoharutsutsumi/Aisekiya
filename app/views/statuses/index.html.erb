@@ -1,0 +1,17 @@
+<%= search_form_for @q do |f| %>
+  <div>場所で検索</div>
+  札幌:<%= f.check_box :shop_name_in, { multiple: true }, 'SAPPORO', nil %>
+  仙台:<%= f.check_box :shop_name_in, { multiple: true }, 'SENDAI', nil %>
+  <div>日時で検索</div>
+  日付:<%= f.select :created_at_eq, dates, { include_blank: '全て' } %>
+  <%= f.submit %>
+<% end %>
+<% @statuses.each do |s| %>
+  <div>
+    店名:<%= s.shop_name %>
+    女性:<%= s.number_of_women %>
+    男性:<%= s.number_of_men %>
+    男女比率:<%= s.ratio %>%
+    日付: <%= s.created_at %>
+  </div>
+<% end %>
