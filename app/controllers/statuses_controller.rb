@@ -1,7 +1,6 @@
 require 'open-uri'
 class StatusesController < ApplicationController
-  def index
-    # Status.new.get_info      
+  def index   
     @q = Status.ransack(params[:q])
     @statuses = @q.result
   end

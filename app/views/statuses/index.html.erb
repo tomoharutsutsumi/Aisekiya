@@ -1,7 +1,8 @@
 <%= search_form_for @q do |f| %>
   <div>場所で検索</div>
-  札幌:<%= f.check_box :shop_name_in, { multiple: true }, 'SAPPORO', nil %>
-  仙台:<%= f.check_box :shop_name_in, { multiple: true }, 'SENDAI', nil %>
+  <% Status.pluck(:shop_name).uniq.each do |n| %>
+    <%= n %><%= f.check_box :shop_name_in, { multiple: true }, n, nil %>
+  <% end %>
   <div>日時で検索</div>
   日付:<%= f.select :created_at_eq, dates, { include_blank: '全て' } %>
   <%= f.submit %>
