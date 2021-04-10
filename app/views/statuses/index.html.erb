@@ -10,12 +10,25 @@
   <%= f.submit %>
 <% end %>
 検索結果は<%= @statuses.size %>です
-<% @statuses.each do |s| %>
-  <div>
-    店名:<%= s.shop_name %>
-    女性:<%= s.number_of_women %>
-    男性:<%= s.number_of_men %>
-    男女比率:<%= s.ratio %>%
-    日付: <%= s.created_at %>
-  </div>
-<% end %>
+<table>
+  <thead>
+    <tr>
+      <th>店名</th>
+      <th>女性</th>
+      <th>男性</th>
+      <th>男女比率</th>
+      <th>日付</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @statuses.each do |s| %>
+      <tr style='color: <%= "#{s.ratio >= 100 ? 'red' : 'black'}" %>'>
+        <td><%= s.shop_name %></td>
+        <td><%= s.number_of_women %></td>
+        <td><%= s.number_of_men %></td>
+        <td><%= s.ratio %>%</td>
+        <td><%= s.created_at %></td>
+      </tr>
+    <% end %>
+  <tbody>
+</table>
