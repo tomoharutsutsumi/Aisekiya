@@ -10,6 +10,7 @@
   <%= f.submit %>
 <% end %>
 検索結果は<%= @statuses.size %>です
+<%= link_to 'グラフで見る', statuses_graphs_path %>
 <table>
   <thead>
     <tr>
