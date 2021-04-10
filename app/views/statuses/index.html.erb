@@ -5,8 +5,11 @@
   <% end %>
   <div>日時で検索</div>
   日付:<%= f.select :created_at_eq, dates, { include_blank: '全て' } %>
+  <div>時間で検索</div>
+  時間:<%= f.select :hour_eq, hours, { include_blank: '全て' } %>
   <%= f.submit %>
 <% end %>
+検索結果は<%= @statuses.size %>です
 <% @statuses.each do |s| %>
   <div>
     店名:<%= s.shop_name %>

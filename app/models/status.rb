@@ -27,9 +27,19 @@ class Status < ApplicationRecord
   #               YOKOHAMA, SHIZUOKA, NAGOYA, KYOTO, CHAYAMACHI, UMEDA, SHINSAIBASHI, NAMBA, 
   #               KOBE, HIROSHIMA, KOKURA, FUKUOKA, KUMAMOTO, MIYAZAKI, KAGOSHIMA, OKINAWA].freeze
 
+  before_create :fix_ms
+
   private
+
+  def fix_ms
+    self.created_at = self.created_at.change(:usec => 0)
+  end
 
   ransacker :created_at do
     Arel.sql('date(created_at)')
+  end
+
+  ransacker :hour do
+    Arel.sql("date_part('hour', created_at)")
   end
 end
