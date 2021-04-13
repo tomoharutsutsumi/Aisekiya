@@ -1,0 +1,39 @@
+<%= search_form_for @q do |f| %>
+  <%# <div>場所で検索</div>
+  <% Status.pluck(:shop_name).uniq.each do |n| %>
+    <%#= n %><%#= f.check_box :shop_name_in, { multiple: true }, n, nil %>
+  <%# end %>
+  <div>日時で検索</div>
+  日付:<%= f.select :statuses_date_eq, dates, { include_blank: '全て' } %>
+  <div>時間で検索</div>
+  開始時間:<%= f.select :statuses_hour_gteq, hours, { include_blank: '全て' } %>
+  終了時間:<%= f.select :statuses_hour_lteq, hours, { include_blank: '全て' } %>
+  <%= f.submit %>
+<% end %>
+<%#= link_to 'グラフで見る', statuses_graphs_path %>
+<table>
+  <thead>
+    <tr>
+      <th>店名</th>
+      <% City.last.statuses.count.times do %>
+        <th>女性</th>
+        <th>男性</th>
+        <th>男女比率</th>
+        <th>日付</th>
+      <% end %>
+    </tr>
+  </thead>
+  <tbody>
+    <% @cities.each do |c| %>
+      <tr>
+        <td><%= c.name %></td>
+        <% c.statuses.each do |s| %>
+          <td><%= s.number_of_women %></td>
+          <td><%= s.number_of_men %></td>
+          <td style='color: <%= "#{s.ratio >= 100 ? 'red' : 'black'}" %>'><%= s.ratio %>%</td>
+          <td><%= s.created_at %></td>
+        <% end %>
+      </tr>
+    <% end %>
+  <tbody>
+</table>

@@ -4,7 +4,7 @@ class CreateStatuses < ActiveRecord::Migration[5.2]
       t.decimal :ratio
       t.integer :number_of_women
       t.integer :number_of_men
-      t.string :shop_name
+      t.references :city, foreign_key: true
 
       t.timestamps
     end

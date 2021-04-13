@@ -1,21 +1,10 @@
 namespace :get_statuses do
   task perform: :environment do
     doc = Nokogiri::HTML(URI.open("https://oriental-lounge.com/"))
-    woman_nums = []
-    man_nums = []
-    shop_names = []
-    doc.css('.woman').each do |n|
-      woman_nums << n.content.to_i
-    end
-    doc.css('.man').each do |n|
-      man_nums << n.content.to_i
-    end
-    doc.css('.en').each do |n|
-      shop_names << n.content
-    end
-    shop_names.each_with_index do |n, i|
-      Status.create(number_of_women: woman_nums[i], number_of_men: man_nums[i], 
-                    ratio: calc_ratio(woman_nums[i], man_nums[i]), shop_name:shop_names[i])
+    doc.css('.woman').zip(doc.css('.man'), doc.css('.en')) do |w, m, e|
+      city = City.find_or_create_by(name: e.content)
+      city.statuses.create(number_of_women: w.content.to_i, number_of_men: m.content.to_i, 
+                           ratio: calc_ratio(w.content.to_i, m.content.to_i))
     end
   end
 
